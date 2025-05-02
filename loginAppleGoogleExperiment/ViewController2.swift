@@ -7,6 +7,8 @@
 
 import UIKit
 import GoogleSignIn
+import FirebaseAuth
+import FirebaseCore
 
 class ViewController2: UIViewController {
 
@@ -17,7 +19,14 @@ class ViewController2: UIViewController {
     }
     
     @IBAction func signOutAction(_ sender: UIButton) {
-        GIDSignIn.sharedInstance.signOut()
+        let firebaseAuth = Auth.auth()
+        do {
+          try
+            firebaseAuth.signOut()
+            performSegue(withIdentifier: "signOut", sender: self)
+        } catch let signOutError as NSError {
+          print("Error signing out: %@", signOutError)
+        }
     }
     
     /*
